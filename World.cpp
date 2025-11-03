@@ -100,6 +100,10 @@ void UWorld::Tick()
 	{
 		//다형성 - runtime시에 결정됨. 오류 검출 불가
 		Actor->Tick();
+		for (auto Component : Actor->Components)
+		{
+			Component->Tick();
+		}
 	}
 }
 void UWorld::Render()

@@ -14,11 +14,12 @@ APlayer::APlayer()
 	//bIsOverlap = true;
 	//Color = { 255,0,0,0 };
 
-	UPaperFlipBookComponent* Paper = new UPaperFlipBookComponent();
-	Paper->SetShape('P');
-	Paper->ZOrder = 1003;
-	Paper->Color = SDL_Color{ 255, 0, 0, 255 };
-	SetupAttachment(Paper);
+	Flipbook = new UPaperFlipBookComponent();
+	Flipbook->SetShape('P');
+	Flipbook->ZOrder = 1003;
+	Flipbook->Color = SDL_Color{ 255, 0, 0, 255 };
+	Flipbook->bAnimation = true;
+	SetupAttachment(Flipbook);
 
 	Collision = new UCollisionComponent();
 	Collision->bIsCollision = true;
@@ -38,18 +39,22 @@ void APlayer::Tick()
 	if (KeyCode == SDLK_w || KeyCode == SDLK_UP)
 	{
 		Location.Y--;
+		Flipbook->YIndex = 2.f;
 	}
 	if(KeyCode == SDLK_s || KeyCode == SDLK_DOWN)
 	{
 		Location.Y++;
+		Flipbook->YIndex = 3.f;
 	}
 	if (KeyCode == SDLK_a || KeyCode == SDLK_LEFT)
 	{
 		Location.X--;
+		Flipbook->YIndex = 0.f;
 	}
 	if (KeyCode == SDLK_d || KeyCode == SDLK_RIGHT)
 	{
 		Location.X++;
+		Flipbook->YIndex = 1.f;
 	}
 
 	if (KeyCode == SDLK_ESCAPE)

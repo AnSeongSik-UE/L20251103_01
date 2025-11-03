@@ -10,11 +10,12 @@ AGoal::AGoal()
 	//bIsOverlap = true;
 	//Color = { 255,255,0,0 };
 
-	UPaperFlipBookComponent* Paper = new UPaperFlipBookComponent();
-	Paper->SetShape('G');
-	Paper->ZOrder = 1000;
-	Paper->Color = SDL_Color{ 255, 255, 0, 0 };
-	SetupAttachment(Paper);
+	//UPaperFlipBookComponent* Paper = new UPaperFlipBookComponent();
+	Flipbook = new UPaperFlipBookComponent();
+	Flipbook->SetShape('G');
+	Flipbook->ZOrder = 1000;
+	Flipbook->Color = SDL_Color{ 255, 255, 0, 0 };
+	SetupAttachment(Flipbook);
 
 	UCollisionComponent* Collision = new UCollisionComponent();
 	Collision->bIsCollision = false;

@@ -4,6 +4,7 @@
 #include "Engine.h"
 
 class UCollisionComponent;
+class UPaperFlipBookComponent;
 
 class APlayer : public AActor
 {
@@ -30,5 +31,6 @@ public:
 	}
 	//
 
+	UPaperFlipBookComponent* Flipbook;
 	UCollisionComponent* Collision;
 };

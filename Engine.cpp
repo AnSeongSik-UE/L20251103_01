@@ -56,6 +56,8 @@ void FEngine::OpenLevel()
 {
 	srand((unsigned int)time(nullptr));
 	World = new UWorld;
+	int MaxX = 0;
+	int MaxY = 0;
 
 	std::ifstream MapFile("Level01.map");
 
@@ -66,6 +68,10 @@ void FEngine::OpenLevel()
 		while (MapFile.getline(Buffer, 80))
 		{
 			std::string Line = Buffer;
+			if (MaxX <= Line.size())
+			{
+				MaxX = Line.size();
+			}
 			for (int X = 0; X < Line.size(); ++X)
 			{
 				if (Line[X] == '*')
@@ -88,7 +94,12 @@ void FEngine::OpenLevel()
 				{
 					AActor* NewActor = new AMonster();
 					NewActor->SetActorLocation(FVector2D(X, Y));
-					NewActor->GetComponent<UPaperFlipBookComponent>()->LoadBMP("./Data/Slime.bmp");
+
+					//Unity Style
+					UPaperFlipBookComponent* Flipbook = NewActor->GetComponent<UPaperFlipBookComponent>();
+					Flipbook->ColorKey = { 255,255,255,255 };
+					Flipbook->LoadBMP("./Data/Slime.bmp");
+
 					//NewActor->SetShape(Line[X]);
 					World->SpawnActor(NewActor);
 				}
@@ -96,8 +107,17 @@ void FEngine::OpenLevel()
 				{
 					AActor* NewActor = new AGoal();
 					NewActor->SetActorLocation(FVector2D(X, Y));
-					NewActor->GetComponent<UPaperFlipBookComponent>()->LoadBMP("./Data/Goal.bmp");
+					//NewActor->GetComponent<UPaperFlipBookComponent>()->LoadBMP("./Data/Goal.bmp");
 					//NewActor->SetShape(Line[X]);
+
+					//Unreal Style - 다운캐스팅
+					AGoal* DownActor = dynamic_cast<AGoal*>(NewActor);
+					if (DownActor)
+					{
+						DownActor->Flipbook->ColorKey = { 255,255,255,255 };
+						DownActor->Flipbook->LoadBMP("./Data/Goal.bmp");
+					}
+
 					World->SpawnActor(NewActor);
 				}
 
@@ -110,6 +130,10 @@ void FEngine::OpenLevel()
 				}
 			}
 			Y++;
+			if (MaxY <= Line.size())
+			{
+				MaxY = Y;
+			}
 		}
 	}
 	//1.
@@ -126,6 +150,9 @@ void FEngine::OpenLevel()
 
 	//UE Gameplay Framework
 	World->SpawnActor(new AGameMode());
+
+	//창 사이즈를 map에 맞게 조정
+	SDL_SetWindowSize(GEngine->MyWindow, MaxX * 60, MaxY * 60);
 }
 void FEngine::Run()
 {
