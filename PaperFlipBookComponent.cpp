@@ -26,15 +26,13 @@ void UPaperFlipBookComponent::Tick()
 {
 	if (bAnimation)
 	{
-		ElapseTime += (float)GEngine->GetWorldDeltaSeconds();
-		if (ElapseTime <= AnimationTime)
+		ElapsedTime += (float)GEngine->GetWorldDeltaSeconds();
+		if (ElapsedTime >= AnimationUpdateTime)
 		{
-			return;
+			XIndex++;
+			XIndex = (float)((int)XIndex % (int)SpriteCountX);
+			ElapsedTime = 0;
 		}
-		ElapseTime = 0.f;
-
-		XIndex++;
-		XIndex = (float)((int)XIndex % (int)SpriteCountX);
 	}
 }
 void UPaperFlipBookComponent::Render()

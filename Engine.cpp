@@ -68,9 +68,9 @@ void FEngine::OpenLevel()
 		while (MapFile.getline(Buffer, 80))
 		{
 			std::string Line = Buffer;
-			if (MaxX <= Line.size())
+			if (MaxX <= (int)Line.size())
 			{
-				MaxX = Line.size();
+				MaxX = (int)Line.size();
 			}
 			for (int X = 0; X < Line.size(); ++X)
 			{

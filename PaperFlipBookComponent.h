@@ -28,7 +28,7 @@ public:
 
 protected:
 	char Shape;
-	float ElapseTime = 0.f;
+	float ElapsedTime = 0.f;
 	
 public:
 	SDL_Color Color = { 255,255,255,255 };
@@ -42,7 +42,7 @@ public:
 	float XIndex = 0.f;
 	float YIndex = 3.f;
 
-	float AnimationTime = 0.5f;
+	float AnimationUpdateTime = 0.5f;
 
 	int SizeX = 60;
 	int SizeY = 60;
