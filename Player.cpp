@@ -65,10 +65,13 @@ void APlayer::Tick()
 	for (auto OtherActor : AllActors)
 	{
 		UCollisionComponent* OtherCollision = OtherActor->GetComponent<UCollisionComponent>();
-		if (Collision->CheckCollision(OtherCollision))
+		if(OtherCollision)
 		{
-			bFlag = true;
-			break;
+			if (Collision->CheckCollision(OtherCollision))
+			{
+				bFlag = true;
+				break;
+			}
 		}
 	}
 

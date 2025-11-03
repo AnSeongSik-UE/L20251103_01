@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 #include "SceneComponent.h"
 #include "SDL3/SDL.h"
 class UPaperFlipBookComponent : public USceneComponent
@@ -30,5 +32,9 @@ protected:
 public:
 	SDL_Color Color = { 255, 255, 255, 255 };
 	int ZOrder;
+	SDL_Surface* BitmapImage = nullptr;	// 메모리에 저장
+	SDL_Texture* Texture = nullptr;		// GPU메모리에 저장
+
+	void LoadBMP(std::string Filename);
 };
 

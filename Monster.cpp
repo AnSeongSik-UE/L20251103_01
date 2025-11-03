@@ -2,6 +2,7 @@
 #include "World.h"
 #include "SDL3/SDL.h"
 #include "PaperFlipBookComponent.h"
+#include "Component.h"
 #include "CollisionComponent.h"
 
 AMonster::AMonster()
